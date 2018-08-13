@@ -1,6 +1,7 @@
 package testb
 
 import grails.beans.util.LazyBeanMap
+import grails.beans.util.LazyMetaPropertyMap
 import grails.databinding.SimpleMapDataBindingSource
 
 class IndexController {
@@ -11,10 +12,13 @@ class IndexController {
         bindData(command, cc)
 
         def lazyBeanMap = new LazyBeanMap(cc)
-        println lazyBeanMap.keySet() // no address key
+        println "LazyBeanMap keys: "+lazyBeanMap.keySet() // no address key
         def src = new SimpleMapDataBindingSource(lazyBeanMap)
 
-        println src.map.keySet()
+        println "SimpleMapDataBindingSource.map keys: " + src.map.keySet()
+        println "properties keys : "+ cc.properties.keySet()
+        def lazyMetaPropertyMap = new LazyMetaPropertyMap(cc)
+        println "LazyMetaPropertyMap keys : "+ lazyMetaPropertyMap.keySet()
         println "Started"
 
         render command.toString()
